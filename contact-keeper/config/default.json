@@ -1,4 +1,3 @@
 {
-    "mongoURI":"mongodb+srv://luis91033:spiderman0@contactkeeper.vhnoe.mongodb.net/?retryWrites=true&w=majority&appName=ContactKeeper",
-    "jwtSecret": "secret"
+  "mongoURI": "mongodb+srv://luis91033:spiderman0@contactkeeper.vhnoe.mongodb.net/?retryWrites=true&w=majority&appName=ContactKeeper"
 }
