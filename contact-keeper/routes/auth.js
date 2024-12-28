@@ -19,7 +19,7 @@ router.get("/", auth, async (req, res) => {
     const user = await User.findById(req.user.id).select("-password");
     res.json(user);
   } catch (error) {
-    console.erros(error.message);
+    console.error(error.message);
     res.status(500).send("Server Error");
   }
 });
@@ -53,6 +53,12 @@ router.post(
       if (!isMatch) {
         return res.status(400).json({ msg: "Invalid Credentials" });
       }
+
+      const payload = {
+        user: {
+          id: user.id,
+        },
+      };
 
       jwt.sign(
         payload,
