@@ -1,35 +1,102 @@
 /** @format */
-
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import { useEffect, useState } from "react";
+import Headers from "./Components/Headers";
+import Guitar from "./components/Guitar";
+import { db } from "./data/db";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const initalCart = () => {
+    const localStorageCart = localStorage.getItem("cart");
+    return localStorageCart ? JSON.parse(localStorageCart) : [];
+  };
+
+  const [data, setData] = useState(db);
+  const [cart, setCart] = useState(initalCart);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
+  function addToCart(item) {
+    const itemExits = cart.findIndex((guitar) => guitar.id === item.id);
+    if (itemExits >= 0) {
+      if (cart[itemExits].quantity > 5) return;
+      //Existe en el carrito
+      const updateCart = [...cart];
+      updateCart[itemExits].quantity++;
+      setCart(updateCart);
+    } else {
+      item.quantity = 1;
+      setCart([...cart, item]);
+    }
+  }
+
+  function removeFromCart(id) {
+    setCart((prevCard) => prevCard.filter((guitar) => guitar.id !== id));
+  }
+
+  function increaseQuantity(id) {
+    const updatedCart = cart.map((item) => {
+      if (item.id == id && item.quantity < 5) {
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+        };
+      }
+      return item;
+    });
+
+    setCart(updatedCart);
+  }
+
+  function decreaseQuantity(id) {
+    const updatedCart = cart.map((item) => {
+      if (item.id == id && item.quantity > 1) {
+        return {
+          ...item,
+          quantity: item.quantity - 1,
+        };
+      }
+      return item;
+    });
+
+    setCart(updatedCart);
+  }
+
+  function clearCart() {
+    setCart([]);
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Hola Mundo en react</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Headers
+        cart={cart}
+        removeFromCart={removeFromCart}
+        increaseQuantity={increaseQuantity}
+        decreaseQuantity={decreaseQuantity}
+        clearCart={clearCart}
+      />
+      <main className="container-xl mt-5">
+        <h2 className="text-center">Nuestra Colección</h2>
+        <div className="row mt-5">
+          {data.map((guitarra) => (
+            <Guitar
+              key={guitarra.id}
+              guitarra={guitarra}
+              setCart={setCart}
+              addToCart={addToCart}
+            />
+          ))}
+        </div>
+      </main>
+
+      <footer className="bg-dark mt-5 py-5">
+        <div className="container-xl">
+          <p className="text-white text-center fs-4 mt-4 m-md-0">
+            GuitarLA - Todos los derechos Reservados
+          </p>
+        </div>
+      </footer>
     </>
   );
 }
