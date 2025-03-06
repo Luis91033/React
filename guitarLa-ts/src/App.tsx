@@ -1,6 +1,6 @@
 /** @format */
 
-import Headers from "./Components/Headers";
+import Headers from "./components/Headers";
 import Guitar from "./components/Guitar";
 
 import useCart from "./hooks/useCart";
