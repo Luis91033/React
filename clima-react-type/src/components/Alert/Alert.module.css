@@ -1,0 +1,9 @@
+/** @format */
+
+.alert {
+  text-align: center;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 1.8rem;
+}

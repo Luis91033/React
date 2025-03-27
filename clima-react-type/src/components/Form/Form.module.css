@@ -11,10 +11,13 @@
   padding: 1rem;
   background-color: transparent;
   border: 0.3rem solid var(--white);
-  color: var(--white);
+  color: white;
   font-size: 1.8rem;
   font-weight: 400;
   border-radius: 1rem;
+}
+.form select option {
+  color: black;
 }
 
 .field ::placeholder {
