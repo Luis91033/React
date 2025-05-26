@@ -4,7 +4,6 @@ import ProductsSearchForm from "@/components/products/ProductsSearchForm";
 import ProductsTable from "@/components/products/ProductsTable";
 import Heading from "@/components/ui/Heading";
 import { prisma } from "@/src/lib/prisma";
-import Link from "next/link";
 
 async function searchProducts(searchTerm: string) {
   const products = await prisma.product.findMany({

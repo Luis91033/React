@@ -12,12 +12,12 @@ const OrdersPage = () => {
       .then((res) => res.json())
       .then((data) => data);
 
-  const { data, error, isLoading } = useSWR<OrderWithProducts[]>(url, fetcher, {
+  const { data, isLoading } = useSWR<OrderWithProducts[]>(url, fetcher, {
     refreshInterval: 1000,
     revalidateOnFocus: false,
   });
 
-  if (isLoading) "Cargando...";
+  if (isLoading) <p>&quotCargando...&ldquo</p>;
   if (data)
     return (
       <>

@@ -16,7 +16,9 @@ interface Store {
 export const useStore = create<Store>((set, get) => ({
   order: [],
   addToOrder: (product) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { categoryId, image, ...data } = product;
+
     let order: OrderItem[] = [];
     if (get().order.find((item) => item.id === data.id)) {
       order = get().order.map((item) =>

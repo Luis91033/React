@@ -1,6 +1,6 @@
 /** @format */
 
-import { Order, OrderProducts, Prisma, Product } from "@prisma/client";
+import { Prisma, Product } from "@prisma/client";
 
 export type OrderItem = Pick<Product, "id" | "name" | "price"> & {
   quantity: number;

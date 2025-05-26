@@ -17,7 +17,7 @@ const ImageUpload = ({ image }: { image: string | undefined }) => {
       onSuccess={(result, { widget }) => {
         if (result.event === "success") {
           widget.close();
-          //@ts-ignore
+          //@ts-expect-error because we use the variable
           setImageUrl(result.info.secure_url);
         }
       }}
